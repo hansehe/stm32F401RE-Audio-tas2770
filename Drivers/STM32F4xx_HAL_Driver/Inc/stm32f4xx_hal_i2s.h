@@ -314,7 +314,7 @@ typedef  void (*pI2S_CallbackTypeDef)(I2S_HandleTypeDef *hi2s); /*!< pointer to 
 #define I2S_CLOCK_EXTERNAL               (0x00000001U)
 #define I2S_CLOCK_PLLR                   (0x00000002U)
 #endif /* STM32F410Tx || STM32F410Cx || STM32F410Rx */
-/**+
+/**
   * @}
   */
 

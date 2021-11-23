@@ -58,10 +58,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define GPIO_TAS2770_IRQZ_Pin GPIO_PIN_0
-#define GPIO_TAS2770_IRQZ_GPIO_Port GPIOC
-#define GPIO_TAS2770_SDZ_Pin GPIO_PIN_1
-#define GPIO_TAS2770_SDZ_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

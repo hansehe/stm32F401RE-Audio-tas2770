@@ -113,10 +113,9 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
   MX_I2C1_Init();
   MX_I2S2_Init();
-  MX_GPIO_Init();
-
   /* USER CODE BEGIN 2 */
 
 //	HAL_I2C_Init(&hi2c1);
@@ -129,10 +128,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//	  ASSERT(audio_init() == HAL_OK);
 	  audio_play(audio_buffer, 4096);
-//	  audio_play(audio_buffer, 256);
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -235,13 +231,13 @@ static void MX_I2S2_Init(void)
   /* USER CODE END I2S2_Init 1 */
   hi2s2.Instance = SPI2;
   hi2s2.Init.Mode = I2S_MODE_MASTER_TX;
-  hi2s2.Init.Standard = I2S_STANDARD_MSB;
+  hi2s2.Init.Standard = I2S_STANDARD_PHILIPS;
   hi2s2.Init.DataFormat = I2S_DATAFORMAT_16B;
   hi2s2.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
   hi2s2.Init.AudioFreq = I2S_AUDIOFREQ_48K;
   hi2s2.Init.CPOL = I2S_CPOL_LOW;
   hi2s2.Init.ClockSource = I2S_CLOCK_PLL;
-  hi2s2.Init.FullDuplexMode = I2S_FULLDUPLEXMODE_ENABLE;
+  hi2s2.Init.FullDuplexMode = I2S_FULLDUPLEXMODE_DISABLE;
   if (HAL_I2S_Init(&hi2s2) != HAL_OK)
   {
     Error_Handler();
@@ -259,27 +255,10 @@ static void MX_I2S2_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIO_TAS2770_SDZ_GPIO_Port, GPIO_TAS2770_SDZ_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : GPIO_TAS2770_IRQZ_Pin */
-  GPIO_InitStruct.Pin = GPIO_TAS2770_IRQZ_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIO_TAS2770_IRQZ_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : GPIO_TAS2770_SDZ_Pin */
-  GPIO_InitStruct.Pin = GPIO_TAS2770_SDZ_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIO_TAS2770_SDZ_GPIO_Port, &GPIO_InitStruct);
 
 }
 

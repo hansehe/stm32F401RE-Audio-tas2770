@@ -21,9 +21,9 @@ HAL_StatusTypeDef audio_init()
 {
 	uint8_t txData[2];
 
-	HAL_GPIO_WritePin(GPIO_TAS2770_SDZ_GPIO_Port, GPIO_TAS2770_SDZ_Pin, GPIO_PIN_RESET);
+//	HAL_GPIO_WritePin(GPIO_TAS2770_SDZ_GPIO_Port, GPIO_TAS2770_SDZ_Pin, GPIO_PIN_RESET);
 	HAL_Delay(100);
-	HAL_GPIO_WritePin(GPIO_TAS2770_SDZ_GPIO_Port, GPIO_TAS2770_SDZ_Pin, GPIO_PIN_SET);
+//	HAL_GPIO_WritePin(GPIO_TAS2770_SDZ_GPIO_Port, GPIO_TAS2770_SDZ_Pin, GPIO_PIN_SET);
 	HAL_Delay(100);;
 
 	// Verify revision id and pg id

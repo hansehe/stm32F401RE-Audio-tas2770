@@ -91,7 +91,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
   /* USER CODE BEGIN I2C1_MspInit 0 */
 
   /* USER CODE END I2C1_MspInit 0 */
-	  __I2C1_CLK_ENABLE();
+
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**I2C1 GPIO Configuration
     PB6     ------> I2C1_SCL
@@ -99,42 +99,10 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
     */
     GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-    //strong pull-uphigh to recover from locking in BUSY state
-
-//        GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;      //this line of original
-//
-//        GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;   //configured to output the GPIO
-//
-//        GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;         // pull strong
-//
-//        HAL_GPIO_Init(GPIOB,&GPIO_InitStruct);
-//
-//        HAL_GPIO_WritePin(GPIOB, 6, GPIO_PIN_SET);       //pulled SCL
-//
-//        HAL_GPIO_WritePin(GPIOB, 7, GPIO_PIN_SET);       //pulled SDA
-//
-//       hi2c->Instance->CR1= I2C_CR1_SWRST;           //reset I2C controller
-//
-//       hi2c->Instance->CR1= 0;               //reset release (not automatically cleared)
-
-    //The following is the original Code
-
-//       GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
-//
-//       GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-//
-//        GPIO_InitStruct.Pull = GPIO_PULLUP;
-//
-//        GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-//
-//        GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
-//
-//        HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* Peripheral clock enable */
     __HAL_RCC_I2C1_CLK_ENABLE();
@@ -207,27 +175,18 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef* hi2s)
     __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**I2S2 GPIO Configuration
-    PC2     ------> I2S2_ext_SD
     PC3     ------> I2S2_SD
-    PB10     ------> I2S2_CK
     PB12     ------> I2S2_WS
-    PC6     ------> I2S2_MCK
+    PB13     ------> I2S2_CK
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_2;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF6_I2S2ext;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_6;
+    GPIO_InitStruct.Pin = GPIO_PIN_3;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_12;
+    GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -258,15 +217,13 @@ void HAL_I2S_MspDeInit(I2S_HandleTypeDef* hi2s)
     __HAL_RCC_SPI2_CLK_DISABLE();
 
     /**I2S2 GPIO Configuration
-    PC2     ------> I2S2_ext_SD
     PC3     ------> I2S2_SD
-    PB10     ------> I2S2_CK
     PB12     ------> I2S2_WS
-    PC6     ------> I2S2_MCK
+    PB13     ------> I2S2_CK
     */
-    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_6);
+    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_3);
 
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10|GPIO_PIN_12);
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_12|GPIO_PIN_13);
 
   /* USER CODE BEGIN SPI2_MspDeInit 1 */
 
